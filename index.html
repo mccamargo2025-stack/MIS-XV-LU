@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUCIANA - Mis XV</title>
+
+    <!-- =================================================================
+         ETIQUETAS PARA VISTA PREVIA EN WHATSAPP (OPEN GRAPH)
+         ================================================================= -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="¡MIS XV AÑOS! - Luciana Bolzon">
+    <meta property="og:description" content="Esta es mi invitación, espero contar con tu presencia en esta noche mágica. ✨">
+    <!-- IMPORTANTE: Reemplaza esta URL por la imagen de portada que quieras (ej: una foto de Luciana) -->
+    <meta property="og:image" content="https://tudominio.com/portada-luciana-retrato.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-top: #080e1a;
+            --bg-bottom: #020408;
+            --card-bg: rgba(13, 22, 45, 0.88);
+            --gold: #dfb875;
+            --silver: #e2e8f0;
+            --silver-glow: #93c5fd;
+            --text-light: #f8fafc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
+            color: var(--text-light);
+            font-family: 'Montserrat', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 10px;
+            position: relative;
+            overflow-x: hidden;
+            overflow-y: hidden; /* Bloqueado hasta tocar Ingresar */
+        }
+
+        /* PORTADA INICIAL ADAPTADA (Fondo Oscuro con Destellos y Emojis) */
+        .welcome-overlay {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at center, #0e1a36 0%, #03060d 100%);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 30px;
+            transition: opacity 0.9s ease, visibility 0.9s ease, transform 0.9s ease;
+        }
+
+        .welcome-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(1.04);
+            pointer-events: none;
+        }
+
+        /* Iconos de la invitación en la portada */
+        .welcome-icons {
+            font-size: 4rem;
+            margin-bottom: 15px;
+            animation: floatIcons 6s ease-in-out infinite;
+        }
+        
+        @keyframes floatIcons {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .welcome-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 5rem;
+            font-weight: 400;
+            color: var(--gold);
+            text-shadow: 0 0 35px rgba(223, 184, 117, 0.7);
+            line-height: 1;
+            margin-bottom: 15px;
+        }
+        
+        .welcome-subtitle {
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--silver);
+            font-weight: 600;
+            margin-bottom: 50px;
+        }
+
+        .btn-enter {
+            background: transparent;
+            color: var(--gold);
+            border: 2px solid var(--gold);
+            padding: 16px 56px;
+            border-radius: 50px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-shadow: 0 0 25px rgba(223, 184, 117, 0.3), inset 0 0 15px rgba(223, 184, 117, 0.15);
+            transition: all 0.35s ease;
+            animation: pulseGlow 2.5s infinite;
+        }
+
+        .btn-enter:hover {
+            background: var(--gold);
+            color: #060a14;
+            box-shadow: 0 0 45px rgba(223, 184, 117, 0.8), inset 0 0 20px rgba(223, 184, 117, 0.3);
+            transform: translateY(-3px);
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(223, 184, 117, 0.3); }
+            50% { box-shadow: 0 0 38px rgba(223, 184, 117, 0.7); }
+        }
+
+        /* Botón flotante de música */
+        .floating-music-btn {
+            position: fixed;
+            top: 18px;
+            right: 18px;
+            z-index: 900;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(13, 22, 45, 0.85);
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            transition: transform 0.3s ease;
+        }
+
+        .floating-music-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Elementos decorativos */
+        .floating-decor {
+            position: fixed;
+            pointer-events: none;
+            z-index: 0;
+            font-size: 2rem;
+            opacity: 0.4;
+            animation: float 7s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(10deg); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 480px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .section-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(223, 184, 117, 0.35);
+            border-radius: 25px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7), 0 0 25px rgba(147, 197, 253, 0.1);
+            backdrop-filter: blur(12px);
+        }
+
+        .floral-header {
+            font-size: 2.2rem;
+            letter-spacing: 6px;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            font-family: 'Cinzel Decorative', serif;
+            color: var(--gold);
+            font-size: 1.1rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .name {
+            font-family: 'Great Vibes', cursive;
+            font-size: 4.5rem;
+            color: var(--silver);
+            text-shadow: 0 0 20px rgba(226, 232, 240, 0.5);
+            line-height: 1.1;
+            margin-bottom: 15px;
+        }
+
+        .intro-text {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #cbd5e1;
+            padding: 0 5px;
+        }
+
+        .scroll-down {
+            font-size: 0.8rem;
+            color: var(--gold);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 10px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-6px);}
+            60% {transform: translateY(-3px);}
+        }
+
+        /* Reproductor de música */
+        .music-box {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px dashed var(--gold);
+            border-radius: 15px;
+            padding: 15px;
+            font-size: 0.85rem;
+            color: var(--gold);
+        }
+
+        .btn-music {
+            margin-top: 12px;
+            background: rgba(223, 184, 117, 0.15);
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-music:hover {
+            background: var(--gold);
+            color: #080c19;
+        }
+
+        /* Cuenta regresiva */
+        .countdown-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--gold);
+            margin-bottom: 15px;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .time-box {
+            flex: 1;
+            background: rgba(10, 15, 30, 0.7);
+            border: 1px solid rgba(223, 184, 117, 0.3);
+            border-radius: 14px;
+            padding: 12px 5px;
+        }
+
+        .time-box span {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--silver);
+        }
+
+        .time-box small {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: #93c5fd;
+        }
+
+        /* Detalles del evento */
+        .details {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 18px;
+            padding: 15px;
+            border-top: 1px solid rgba(226, 232, 240, 0.2);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.2);
+            margin-bottom: 15px;
+        }
+
+        .detail-item {
+            margin: 12px 0;
+            font-size: 0.95rem;
+        }
+
+        .detail-item strong {
+            color: var(--gold);
+            display: block;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 3px;
+        }
+
+        /* Botones interactivos */
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 14px 20px;
+            margin: 10px 0;
+            border-radius: 50px;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #dfb875 0%, #f7e3be 50%, #c89c52 100%);
+            color: #080c19;
+            box-shadow: 0 5px 15px rgba(223, 184, 117, 0.35);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(223, 184, 117, 0.55);
+        }
+
+        .btn-secondary {
+            background: rgba(30, 58, 138, 0.4);
+            color: var(--silver);
+            border: 1px solid rgba(147, 197, 253, 0.4);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(30, 58, 138, 0.7);
+            transform: translateY(-2px);
+        }
+
+        /* Caja de regalo y alias */
+        .alias-text {
+            font-family: monospace;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin: 10px 0;
+            color: var(--gold);
+            user-select: all;
+        }
+
+        .copy-msg {
+            font-size: 0.8rem;
+            color: #a3e4d7;
+            display: none;
+            margin-top: 5px;
+        }
+
+        /* MODAL DE CONFIRMACIÓN DE ASISTENCIA (RSVP) */
+        .rsvp-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(2, 4, 8, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 9500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.35s ease, visibility 0.35s ease;
+        }
+
+        .rsvp-modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .rsvp-modal {
+            background: linear-gradient(160deg, #0e1830 0%, #070c18 100%);
+            border: 1px solid rgba(223, 184, 117, 0.5);
+            border-radius: 25px;
+            width: 100%;
+            max-width: 420px;
+            padding: 28px 22px;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 30px rgba(223, 184, 117, 0.15);
+            transform: translateY(20px);
+            transition: transform 0.35s ease;
+            text-align: left;
+        }
+
+        .rsvp-modal-overlay.active .rsvp-modal {
+            transform: translateY(0);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 16px;
+            right: 18px;
+            background: none;
+            border: none;
+            color: var(--silver);
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+
+        .close-modal:hover {
+            opacity: 1;
+            color: var(--gold);
+        }
+
+        .rsvp-title {
+            font-family: 'Cinzel Decorative', serif;
+            color: var(--gold);
+            font-size: 1.2rem;
+            text-align: center;
+            margin-bottom: 6px;
+        }
+
+        .rsvp-subtitle {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gold);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .radio-option {
+            flex: 1;
+            position: relative;
+        }
+
+        .radio-option input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .radio-tile {
+            display: block;
+            text-align: center;
+            padding: 10px 8px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(226, 232, 240, 0.25);
+            color: var(--silver);
+            font-size: 0.82rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .radio-option input:checked + .radio-tile {
+            background: rgba(223, 184, 117, 0.2);
+            border-color: var(--gold);
+            color: var(--gold);
+            font-weight: 600;
+            box-shadow: 0 0 12px rgba(223, 184, 117, 0.25);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(226, 232, 240, 0.25);
+            color: var(--text-light);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.25s;
+        }
+
+        .form-control:focus {
+            border-color: var(--gold);
+        }
+
+        .form-control option {
+            background: #0e1830;
+            color: var(--text-light);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 70px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PORTADA INICIAL (NUEVO DISEÑO: Iconos y Nombre de Luciana) -->
+    <div class="welcome-overlay" id="welcomeOverlay">
+        <div class="welcome-icons">🦋💎✨</div>
+        <h1 class="welcome-title">Luciana</h1>
+        <div class="welcome-subtitle">Mis XV Años</div>
+        <button class="btn-enter" onclick="entrarTarjeta()">INGRESAR</button>
+    </div>
+
+    <!-- Botón flotante de música -->
+    <button class="floating-music-btn" id="floatingMusicBtn" onclick="toggleMusica()" title="Pausar/Reproducir música">🎵</button>
+
+    <!-- Reproductor oculto de YouTube -->
+    <div id="youtube-player" style="position: fixed; top: -9999px; left: -9999px; width: 1px; height: 1px; opacity: 0; pointer-events: none;"></div>
+
+    <!-- Elementos flotantes de fondo -->
+    <div class="floating-decor" style="top: 5%; left: 8%;">🦋</div>
+    <div class="floating-decor" style="top: 25%; right: 10%; animation-delay: 2s;">🌸</div>
+    <div class="floating-decor" style="top: 55%; left: 6%; animation-delay: 4s;">✨</div>
+    <div class="floating-decor" style="top: 80%; right: 8%; animation-delay: 1s;">🦋</div>
+
+    <div class="container">
+        
+        <!-- SECCIÓN 1: BIENVENIDA -->
+        <div class="section-card">
+            <div class="floral-header">💎✨🦋</div>
+            <div class="subtitle">Mis XV Años</div>
+            <h1 class="name">Luciana</h1>
+            <p class="intro-text">
+                Hay momentos que quedan grabados para siempre en el corazón. Este es uno de ellos. Por eso, me llena de alegría invitarte a compartir esta celebración tan especial.<br><br>
+                💌 Prepará tu mejor estilo y acompañame a celebrar esta noche mágica. ✨
+            </p>
+            <div class="scroll-down">Deslizá hacia abajo ↓</div>
+        </div>
+
+        <!-- SECCIÓN 2: MÚSICA Y CUENTA REGRESIVA -->
+        <div class="section-card">
+            <div class="music-box">
+                🎵 <strong>Something Just Like This</strong><br>
+                <small>The Chainsmokers & Coldplay</small><br>
+                <button class="btn-music" id="musicToggleBtn" onclick="toggleMusica()">⏸ Pausar Música</button>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <div class="countdown-title">Faltan para el Gran Día</div>
+                <div class="countdown">
+                    <div class="time-box"><span id="days">00</span><small>Días</small></div>
+                    <div class="time-box"><span id="hours">00</span><small>Hs</small></div>
+                    <div class="time-box"><span id="minutes">00</span><small>Min</small></div>
+                    <div class="time-box"><span id="seconds">00</span><small>Seg</small></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 3: DETALLES DEL EVENTO -->
+        <div class="section-card">
+            <h3 style="font-family: 'Cinzel Decorative', serif; color: var(--gold); margin-bottom: 15px; font-size: 1.1rem;">Detalles</h3>
+            <div class="details">
+                <div class="detail-item">
+                    <strong>📅 Fecha & Hora</strong>
+                    Viernes 11 de Diciembre<br>
+                    De 20:30 a 03:30 hs
+                </div>
+                <div class="detail-item">
+                    <strong>🖤 Código de Vestimenta</strong>
+                    Total Black (elegante sport)
+                </div>
+            </div>
+
+            <a href="https://maps.app.goo.gl/wDqsEFMu1FzSLMH59" target="_blank" class="btn btn-primary">
+                📍 ¿CÓMO LLEGAR? (VER MAPA)
+            </a>
+        </div>
+
+        <!-- SECCIÓN 4: ACCIONES Y CONFIRMACIÓN -->
+        <div class="section-card">
+            <h3 style="font-family: 'Cinzel Decorative', serif; color: var(--gold); margin-bottom: 15px; font-size: 1.1rem;">Confirmación & Recuerdos</h3>
+            
+            <button type="button" onclick="abrirModalRSVP()" class="btn btn-primary">
+                ✅ CONFIRMAR ASISTENCIA
+            </button>
+
+            <a href="https://photos.app.goo.gl/eweoQYuanceCSP9E6" target="_blank" class="btn btn-secondary">
+                📸 ÁLBUM PARA SUBIR FOTOS
+            </a>
+        </div>
+
+        <!-- SECCIÓN 5: REGALOS -->
+        <div class="section-card">
+            <strong style="color: var(--silver); font-size: 1rem; display: block; margin-bottom: 8px;">🎁 REGALO</strong>
+            <p style="font-size: 0.85rem; color: #cbd5e1; margin-bottom: 15px;">
+                Tu presencia es mi mejor regalo. Y si quieres acompañarme también con un presente te dejo mi alias:
+            </p>
+            <div class="alias-text" id="alias">lu.bolzon.67</div>
+            <button onclick="copiarAlias()" class="btn btn-primary" style="padding: 12px; font-size: 0.85rem;">
+                📋 COPIAR ALIAS MERCADO PAGO
+            </button>
+            <div class="copy-msg" id="copyMsg">¡Alias copiado al portapapeles! ✨</div>
+        </div>
+
+        <div style="text-align: center; margin-bottom: 20px; font-size: 1.5rem;">🦋💎✨</div>
+    </div>
+
+    <!-- MODAL FORMULARIO DE CONFIRMACIÓN -->
+    <div class="rsvp-modal-overlay" id="rsvpModal" onclick="cerrarModalSiFuera(event)">
+        <div class="rsvp-modal">
+            <button class="close-modal" onclick="cerrarModalRSVP()" aria-label="Cerrar">&times;</button>
+            <h3 class="rsvp-title">Confirmar Asistencia</h3>
+            <p class="rsvp-subtitle">Completá tus datos para avisarle a Lu ✨</p>
+
+            <form id="rsvpForm" onsubmit="enviarConfirmacionWhatsApp(event)">
+                <div class="form-group">
+                    <label class="form-label">¿Vas a asistir?</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="asistencia" value="Sí, ¡allí estaré! 🎉" checked onchange="toggleCamposAsistencia()">
+                            <span class="radio-tile">✨ Sí, confirmo</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="asistencia" value="No podré asistir 😢" onchange="toggleCamposAsistencia()">
+                            <span class="radio-tile">❌ No puedo ir</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="guestName">Nombre y Apellido *</label>
+                    <input type="text" id="guestName" class="form-control" placeholder="Ej: Camila Pérez" required>
+                </div>
+
+                <div id="camposExtraAsistencia">
+                    <div class="form-group">
+                        <label class="form-label" for="dietary">¿Alguna restricción alimentaria?</label>
+                        <select id="dietary" class="form-control">
+                            <option value="Ninguna">Ninguna (Menú tradicional)</option>
+                            <option value="Celíaco / Sin TACC">Celíaco / Sin TACC</option>
+                            <option value="Vegetariano">Vegetariano</option>
+                            <option value="Vegano">Vegano</option>
+                            <option value="Otra (detallada abajo)">Otra (aclarar en el mensaje)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="guestMessage">Mensaje o canción sugerida (opcional)</label>
+                    <textarea id="guestMessage" class="form-control" placeholder="Dejale un saludo a Lu o sugerí un tema que no puede faltar..."></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="margin-top: 10px;">
+                    📲 ENVIAR POR WHATSAPP
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- API de YouTube -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script>
+        let player;
+        let isPlaying = false;
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtube-player', {
+                height: '1',
+                width: '1',
+                videoId: 'FM7MFYoylVs',
+                playerVars: {
+                    'autoplay': 0,
+                    'controls': 0,
+                    'loop': 1,
+                    'playlist': 'FM7MFYoylVs',
+                    'playsinline': 1
+                }
+            });
+        }
+
+        function entrarTarjeta() {
+            document.getElementById('welcomeOverlay').classList.add('hidden');
+            document.body.style.overflowY = 'auto';
+
+            if (player && typeof player.playVideo === 'function') {
+                player.playVideo();
+                isPlaying = true;
+                actualizarBotonesMusica();
+            }
+        }
+
+        function toggleMusica() {
+            if (!player || typeof player.playVideo !== 'function') return;
+
+            if (isPlaying) {
+                player.pauseVideo();
+                isPlaying = false;
+            } else {
+                player.playVideo();
+                isPlaying = true;
+            }
+            actualizarBotonesMusica();
+        }
+
+        function actualizarBotonesMusica() {
+            const btn = document.getElementById('musicToggleBtn');
+            const floatBtn = document.getElementById('floatingMusicBtn');
+            if (isPlaying) {
+                btn.innerText = '⏸ Pausar Música';
+                floatBtn.innerText = '🎵';
+                floatBtn.style.opacity = '1';
+            } else {
+                btn.innerText = '▶️ Reproducir Música';
+                floatBtn.innerText = '🔇';
+                floatBtn.style.opacity = '0.6';
+            }
+        }
+
+        // Cuenta regresiva
+        const eventDate = new Date("December 11, 2026 20:30:00").getTime();
+
+        const timer = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = eventDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days < 10 ? "0" + days : days;
+            document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+            document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+            document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+
+            if (distance < 0) {
+                clearInterval(timer);
+                document.querySelector(".countdown").innerHTML = "<div style='width:100%; color:var(--gold); font-weight:bold;'>¡Llegó el gran día! 🎉</div>";
+            }
+        }, 1000);
+
+        // Copiar alias
+        function copiarAlias() {
+            const aliasText = document.getElementById("alias").innerText;
+            navigator.clipboard.writeText(aliasText).then(() => {
+                const msg = document.getElementById("copyMsg");
+                msg.style.display = "block";
+                setTimeout(() => { msg.style.display = "none"; }, 3000);
+            });
+        }
+
+        // LÓGICA DEL MODAL RSVP
+        function abrirModalRSVP() {
+            document.getElementById('rsvpModal').classList.add('active');
+        }
+
+        function cerrarModalRSVP() {
+            document.getElementById('rsvpModal').classList.remove('active');
+        }
+
+        function cerrarModalSiFuera(event) {
+            if (event.target.id === 'rsvpModal') {
+                cerrarModalRSVP();
+            }
+        }
+
+        function toggleCamposAsistencia() {
+            const asiste = document.querySelector('input[name="asistencia"]:checked').value;
+            const camposExtra = document.getElementById('camposExtraAsistencia');
+            if (asiste.includes("No podré")) {
+                camposExtra.style.display = 'none';
+            } else {
+                camposExtra.style.display = 'block';
+            }
+        }
+
+        function enviarConfirmacionWhatsApp(event) {
+            event.preventDefault();
+
+            const telefono = "5492613023328";
+            const asistencia = document.querySelector('input[name="asistencia"]:checked').value;
+            const nombre = document.getElementById('guestName').value.trim();
+            const dieta = document.getElementById('dietary').value;
+            const mensaje = document.getElementById('guestMessage').value.trim();
+
+            let textoWhatsApp = `*CONFIRMACIÓN XV DE LUCIANA* ✨\n\n`;
+            textoWhatsApp += `👤 *Invitado/a:* ${nombre}\n`;
+            textoWhatsApp += `📌 *Estado:* ${asistencia}\n`;
+
+            if (!asistencia.includes("No podré")) {
+                textoWhatsApp += `🍽️ *Menú:* ${dieta}\n`;
+            }
+
+            if (mensaje !== "") {
+                textoWhatsApp += `💌 *Mensaje/Canción:* ${mensaje}\n`;
+            }
+
+            const urlWhatsApp = `https://wa.me/${telefono}?text=${encodeURIComponent(textoWhatsApp)}`;
+            window.open(urlWhatsApp, '_blank');
+            cerrarModalRSVP();
+        }
+    </script>
+</body>
+</html>
